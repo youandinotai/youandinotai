@@ -1,0 +1,21 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Environment files with sensitive data
+.env
+.env.*
+*.env
+attached_assets/*.env
+attached_assets/.env*
+C:\UandINotAI\.env
+
+# Sensitive configuration files
+*.pem
+*.key
+*.cert
+*.p12
+secrets/
