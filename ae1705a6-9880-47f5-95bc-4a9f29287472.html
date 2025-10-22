@@ -1,0 +1,461 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U❤️i - Dating App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-red': '#EF4444',
+                        'brand-pink': '#EC4899',
+                        'brand-coral': '#F97316'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-inter bg-gray-50 overflow-x-hidden">
+
+    <!-- @COMPONENT: AppContainer -->
+    <div class="max-w-md mx-auto bg-white shadow-xl min-h-screen relative">
+        
+        <!-- @COMPONENT: WelcomeScreen [initial landing screen] -->
+        <div id="welcomeScreen" class="absolute inset-0 bg-gradient-to-br from-brand-red via-brand-pink to-brand-coral flex flex-col items-center justify-center p-8 text-white z-50">
+            <div class="text-center mb-12">
+                <div class="text-6xl mb-4">
+                    <span class="text-white font-bold">U</span>
+                    <i class="fas fa-heart text-white"></i>
+                    <span class="text-white font-bold">i</span>
+                </div>
+                <div class="text-xl font-semibold mb-2">UANDINOTAI.ONLINE</div>
+                <p class="text-white/80 text-sm">Find your perfect match</p>
+            </div>
+            
+            <div class="w-full space-y-4">
+                <button data-event="click:showMainApp" class="w-full bg-white text-brand-red py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                    Start Dating
+                </button>
+                <button class="w-full border-2 border-white text-white py-4 rounded-full font-semibold bg-transparent hover:bg-white/10 transition-all duration-300">
+                    Already have an account?
+                </button>
+            </div>
+            
+            <div class="absolute bottom-8 text-center text-white/60 text-xs">
+                <p>Premium features start at $9.99/week</p>
+            </div>
+        </div>
+
+        <!-- @COMPONENT: MainApp [main application interface] -->
+        <div id="mainApp" class="hidden">
+            
+            <!-- @COMPONENT: Header -->
+            <header class="bg-white shadow-sm p-4 flex items-center justify-between relative z-20">
+                <div class="flex items-center space-x-2">
+                    <div class="text-2xl">
+                        <span class="text-brand-red font-bold">U</span>
+                        <i class="fas fa-heart text-brand-red"></i>
+                        <span class="text-brand-red font-bold">i</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative">
+                        <i class="fas fa-fire text-brand-coral text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </button>
+                    <button>
+                        <i class="fas fa-user-circle text-gray-400 text-xl"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- @COMPONENT: SwipeArea [main swiping interface] -->
+            <div class="relative p-4 pb-24" style="height: calc(100vh - 160px);">
+                
+                <!-- @STATE: currentProfileIndex:number = 0 -->
+                <!-- @MAP: profiles.map((profile, index) => ( -->
+                
+                <!-- Profile Card 1 (Top) -->
+                <!-- A young woman with curly hair laughing outdoors in golden hour lighting -->
+                <div class="absolute inset-4 bg-white rounded-3xl shadow-2xl overflow-hidden swipe-card" id="card-1" style="z-index: 3;">
+                    <div class="relative h-full">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000" alt="Profile photo" class="w-full h-2/3 object-cover" data-mock="true">
+                        
+                        <!-- Premium Blur Overlay for explicit content -->
+                        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center" data-mock="true">
+                            <div class="bg-white/90 rounded-xl p-4 text-center">
+                                <i class="fas fa-crown text-brand-coral text-2xl mb-2"></i>
+                                <p class="text-sm font-semibold">Premium Feature</p>
+                                <p class="text-xs text-gray-600">Upgrade to view</p>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                            <h3 class="text-2xl font-bold" data-bind="profile.name">Emma, 25</h3>
+                            <p class="text-sm opacity-90" data-bind="profile.distance">2 miles away</p>
+                            <div class="flex items-center mt-2 space-x-2">
+                                <span class="bg-white/20 px-2 py-1 rounded-full text-xs">Photography</span>
+                                <span class="bg-white/20 px-2 py-1 rounded-full text-xs">Travel</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Like/Pass buttons -->
+                        <div class="absolute bottom-6 right-6 flex space-x-3">
+                            <button class="w-14 h-14 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors" data-event="click:passProfile">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                            <button class="w-14 h-14 bg-brand-red rounded-full shadow-lg flex items-center justify-center text-white hover:bg-red-600 transition-colors" data-event="click:likeProfile">
+                                <i class="fas fa-heart text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Card 2 (Behind) -->
+                <!-- A handsome man with a beard sitting in a coffee shop smiling at camera -->
+                <div class="absolute inset-4 bg-white rounded-3xl shadow-xl overflow-hidden swipe-card" id="card-2" style="z-index: 2; transform: scale(0.95);">
+                    <div class="relative h-full">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000" alt="Profile photo" class="w-full h-2/3 object-cover" data-mock="true">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                            <h3 class="text-2xl font-bold" data-bind="profile.name">Alex, 28</h3>
+                            <p class="text-sm opacity-90" data-bind="profile.distance">3 miles away</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Card 3 (Background) -->
+                <!-- A woman with long dark hair in casual outfit outdoors in natural lighting -->
+                <div class="absolute inset-4 bg-white rounded-3xl shadow-lg overflow-hidden swipe-card" id="card-3" style="z-index: 1; transform: scale(0.9);">
+                    <div class="relative h-full">
+                        <img src="https://pixabay.com/get/gac2b0030dc7d4a4d996b627c5e7efa1d2696525bb7463e3b4c590ebedf13547280be83cf5a4b920ecfaf637b3787f7f0f1e2617910bd8f8990bc82d1513b8328_1280.jpg" alt="Profile photo" class="w-full h-2/3 object-cover" data-mock="true">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                            <h3 class="text-2xl font-bold" data-bind="profile.name">Sarah, 24</h3>
+                            <p class="text-sm opacity-90" data-bind="profile.distance">1 mile away</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- @END_MAP )) -->
+
+                <!-- Out of cards message -->
+                <div class="hidden absolute inset-4 flex items-center justify-center" id="noMoreCards">
+                    <div class="text-center">
+                        <i class="fas fa-heart-broken text-6xl text-gray-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No more profiles</h3>
+                        <p class="text-gray-500 mb-6">Check back later for new matches!</p>
+                        <button class="bg-brand-red text-white px-6 py-3 rounded-full font-semibold">
+                            <i class="fas fa-crown mr-2"></i>
+                            Get Premium for More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- @COMPONENT: BottomNavigation -->
+            <nav class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+                <div class="flex justify-around">
+                    <button class="flex flex-col items-center space-y-1 text-brand-red" data-event="click:showDiscoverTab">
+                        <i class="fas fa-fire text-xl"></i>
+                        <span class="text-xs font-medium">Discover</span>
+                    </button>
+                    <button class="flex flex-col items-center space-y-1 text-gray-400" data-event="click:showLikesTab">
+                        <div class="relative">
+                            <i class="fas fa-heart text-xl"></i>
+                            <!-- Premium lock indicator -->
+                            <i class="fas fa-lock absolute -top-1 -right-1 text-xs text-brand-coral"></i>
+                        </div>
+                        <span class="text-xs">Likes</span>
+                    </button>
+                    <button class="flex flex-col items-center space-y-1 text-gray-400" data-event="click:showChatsTab">
+                        <div class="relative">
+                            <i class="fas fa-comment text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">2</span>
+                        </div>
+                        <span class="text-xs">Chats</span>
+                    </button>
+                    <button class="flex flex-col items-center space-y-1 text-gray-400" data-event="click:showProfileTab">
+                        <i class="fas fa-user text-xl"></i>
+                        <span class="text-xs">Profile</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- @COMPONENT: MatchModal [displays when users match] -->
+        <div id="matchModal" class="hidden fixed inset-0 bg-gradient-to-br from-brand-red via-brand-pink to-brand-coral flex items-center justify-center z-50 p-4">
+            <div class="text-center text-white">
+                <div class="text-6xl mb-6 animate-pulse">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4">It's a Match!</h2>
+                <p class="text-lg mb-8">You and Emma liked each other</p>
+                
+                <div class="flex justify-center space-x-4 mb-8">
+                    <!-- Your profile image -->
+                    <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" alt="Your profile" class="w-full h-full object-cover" data-mock="true">
+                    </div>
+                    <!-- Match profile image -->
+                    <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" alt="Match profile" class="w-full h-full object-cover" data-mock="true">
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="w-full bg-white text-brand-red py-4 rounded-full font-semibold text-lg shadow-lg" data-event="click:startChat">
+                        Send Message
+                    </button>
+                    <button class="w-full border-2 border-white text-white py-4 rounded-full font-semibold bg-transparent" data-event="click:closeMatch">
+                        Keep Swiping
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- @COMPONENT: PremiumUpgradeModal -->
+        <div id="premiumModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div class="bg-white rounded-3xl p-6 max-w-sm w-full">
+                <div class="text-center mb-6">
+                    <i class="fas fa-crown text-4xl text-brand-coral mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Upgrade to Premium</h3>
+                    <p class="text-gray-600">Unlock all features and find love faster</p>
+                </div>
+                
+                <div class="space-y-4 mb-6">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700">See who liked you</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700">Read receipts</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700">Exchange contact info</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700">View unblurred content</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-brand-red to-brand-pink text-white p-4 rounded-2xl mb-6 text-center">
+                    <div class="text-3xl font-bold">$9.99</div>
+                    <div class="text-sm opacity-90">per week</div>
+                </div>
+                
+                <div class="space-y-3">
+                    <button class="w-full bg-brand-red text-white py-4 rounded-full font-semibold text-lg" data-event="click:subscribePremium">
+                        Start Premium
+                    </button>
+                    <button class="w-full text-gray-500 py-2" data-event="click:closePremiumModal">
+                        Maybe later
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- @COMPONENT: ChatInterface [hidden by default] -->
+        <div id="chatInterface" class="hidden absolute inset-0 bg-white z-40">
+            <header class="bg-white shadow-sm p-4 flex items-center space-x-4">
+                <button data-event="click:backToMain">
+                    <i class="fas fa-arrow-left text-xl text-gray-600"></i>
+                </button>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <!-- Profile photo of matched user -->
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200" alt="Chat partner" class="w-full h-full object-cover" data-mock="true">
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold" data-bind="match.name">Emma</h3>
+                    <p class="text-sm text-gray-500">Online now</p>
+                </div>
+                <button>
+                    <i class="fas fa-ellipsis-v text-gray-400"></i>
+                </button>
+            </header>
+            
+            <div class="flex-1 p-4 space-y-4 overflow-y-auto" style="height: calc(100vh - 200px);">
+                <!-- @MAP: messages.map(message => ( -->
+                <div class="flex justify-end">
+                    <div class="bg-brand-red text-white p-3 rounded-2xl rounded-tr-sm max-w-xs">
+                        <p data-bind="message.text">Hey! Thanks for the match 😊</p>
+                        <div class="flex items-center justify-end mt-1 space-x-1">
+                            <span class="text-xs opacity-75">2:30 PM</span>
+                            <!-- Premium feature: Read receipts -->
+                            <div class="w-4 h-4 bg-white/20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-lock text-xs" data-implementation="Show read receipt for premium users"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-start">
+                    <div class="bg-gray-100 text-gray-800 p-3 rounded-2xl rounded-tl-sm max-w-xs">
+                        <p data-bind="message.text">Hi! I loved your profile photos! 📸</p>
+                        <span class="text-xs text-gray-500">2:32 PM</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end">
+                    <div class="bg-brand-red text-white p-3 rounded-2xl rounded-tr-sm max-w-xs">
+                        <p data-bind="message.text">Would love to share my number: ***-***-**** 📱</p>
+                        <!-- Premium blur for contact info -->
+                        <div class="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-2xl flex items-center justify-center" data-mock="true">
+                            <i class="fas fa-crown text-white text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-end mt-1 space-x-1">
+                            <span class="text-xs opacity-75">2:35 PM</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+            
+            <div class="bg-white border-t border-gray-200 p-4">
+                <div class="flex items-center space-x-3">
+                    <button class="text-gray-400">
+                        <i class="fas fa-image text-xl"></i>
+                    </button>
+                    <div class="flex-1 relative">
+                        <input type="text" placeholder="Type a message..." class="w-full bg-gray-100 rounded-full px-4 py-3 pr-12 focus:outline-none focus:bg-gray-200 transition-colors" data-mock="true">
+                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-brand-red text-white rounded-full flex items-center justify-center">
+                            <i class="fas fa-paper-plane text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        // TODO: Implement business logic, API calls, or state management
+        
+        (function() {
+            // App initialization and state
+            let currentScreen = 'welcome';
+            let currentCardIndex = 0;
+            
+            // Screen management
+            function showMainApp() {
+                document.getElementById('welcomeScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                currentScreen = 'main';
+            }
+            
+            function showMatchModal() {
+                document.getElementById('matchModal').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('matchModal').classList.add('hidden');
+                }, 3000);
+            }
+            
+            function showPremiumModal() {
+                document.getElementById('premiumModal').classList.remove('hidden');
+            }
+            
+            function closePremiumModal() {
+                document.getElementById('premiumModal').classList.add('hidden');
+            }
+            
+            function showChat() {
+                document.getElementById('chatInterface').classList.remove('hidden');
+                currentScreen = 'chat';
+            }
+            
+            function backToMain() {
+                document.getElementById('chatInterface').classList.add('hidden');
+                currentScreen = 'main';
+            }
+            
+            // Card swiping simulation
+            function likeProfile() {
+                // Simulate match (30% chance)
+                if (Math.random() < 0.3) {
+                    showMatchModal();
+                }
+                nextCard();
+            }
+            
+            function passProfile() {
+                nextCard();
+            }
+            
+            function nextCard() {
+                const currentCard = document.getElementById(`card-${currentCardIndex + 1}`);
+                if (currentCard) {
+                    currentCard.style.transform = 'translateX(100%) rotate(20deg)';
+                    currentCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        currentCard.style.display = 'none';
+                        currentCardIndex++;
+                        
+                        if (currentCardIndex >= 3) {
+                            document.getElementById('noMoreCards').classList.remove('hidden');
+                        }
+                    }, 300);
+                }
+            }
+            
+            // Event listeners
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('[data-event]');
+                if (!target) return;
+                
+                const event = target.getAttribute('data-event');
+                
+                switch(event) {
+                    case 'click:showMainApp':
+                        showMainApp();
+                        break;
+                    case 'click:likeProfile':
+                        likeProfile();
+                        break;
+                    case 'click:passProfile':
+                        passProfile();
+                        break;
+                    case 'click:startChat':
+                        document.getElementById('matchModal').classList.add('hidden');
+                        showChat();
+                        break;
+                    case 'click:closeMatch':
+                        document.getElementById('matchModal').classList.add('hidden');
+                        break;
+                    case 'click:showLikesTab':
+                        showPremiumModal();
+                        break;
+                    case 'click:showChatsTab':
+                        showChat();
+                        break;
+                    case 'click:closePremiumModal':
+                        closePremiumModal();
+                        break;
+                    case 'click:subscribePremium':
+                        // TODO: Implement Stripe payment integration
+                        alert('Premium subscription activated! (Demo)');
+                        closePremiumModal();
+                        break;
+                    case 'click:backToMain':
+                        backToMain();
+                        break;
+                }
+            });
+            
+            // Initialize app
+            setTimeout(showMainApp, 2000); // Auto-advance after 2 seconds for demo
+            
+        })();
+    </script>
+</body>
+</html>
